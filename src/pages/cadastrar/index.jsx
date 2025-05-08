@@ -17,6 +17,11 @@ export default function Cadastrar(){
     async function handleSubmit(event){
         event.preventDefault();
 
+        if(!titulo || !diretor || !ano || !genero || !nota || !sinopse || !banner){
+            toast.error("Preencha todos os campos!")
+            return;
+        }
+
         try {
             await instance.post("/api/movies", {
                 titulo: titulo,
@@ -50,8 +55,8 @@ export default function Cadastrar(){
                 <div className="w-full flex justify-center pt-[40px]">
                     <form onSubmit={handleSubmit} className="w-[50%] h-auto min-h-[200px] bg-[#222222] rounded-2xl border border-[#3a364c] flex flex-col p-6 gap-4">
                         <CustomInput 
-                            value={Titulo}
-                            label="Título"
+                            value={titulo}
+                            label="Titulo"
                             placeholder="Digite o título do filme"
                             type="text"
                             onChange={
@@ -59,7 +64,7 @@ export default function Cadastrar(){
                             }
                         />
                         <CustomInput 
-                            value={Diretor}
+                            value={diretor}
                             label="Diretor"
                             placeholder="Digite o nome do diretor"
                             type="text"
@@ -70,7 +75,7 @@ export default function Cadastrar(){
                         <div className="w-full flex gap-4">
                             <div className="w-[50%]">
                                 <CustomInput
-                                    value={Ano}
+                                    value={ano}
                                     label="Ano"
                                     placeholder="Digite o ano de lançamento"
                                     type="number"
@@ -84,8 +89,8 @@ export default function Cadastrar(){
                                     onChange={
                                         (event) => setGenero(event.target.value)
                                     }
-                                    value={Gênero}
-                                    label="Gênero"
+                                    value={genero}
+                                    label="Genero"
                                     options= {[
                                         "Ação", 
                                         "Comédia",
@@ -103,7 +108,7 @@ export default function Cadastrar(){
                                 onChange={
                                     (event) => setNota(event.target.value)
                                 }
-                                value={Nota}
+                                value={nota}
                                 label="Nota"
                                 placeholder="0"
                                 type="number"
@@ -124,7 +129,7 @@ export default function Cadastrar(){
                             onChange={
                                 (event) => setBanner(event.target.value)
                             }
-                            value={Banner}
+                            value={banner}
                             label="Banner"
                             placeholder="URL da imagem"
                             type="text"
